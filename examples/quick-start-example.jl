@@ -36,7 +36,7 @@ chord = propgeom[:, 2] * Rtip
 theta = propgeom[:, 3] * pi/180
 
 # import airfoil data
-af = AlphaAF("../airfoil-data/naca4412.dat")
+af = AlphaAF("example-airfoil-data/naca4412.dat")
 
 # define sections
 sections = Section.(r, chord, theta, Ref(af))
