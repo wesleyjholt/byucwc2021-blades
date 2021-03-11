@@ -74,3 +74,7 @@ xlabel("r/Rtip")
 ylabel("distributed loads (N/m)")
 legend(["flapwise", "lead-lag"])
 savefig("example-figures/quick-start-example-distributed-loads.pdf")
+
+T, Q = thrusttorque(rotor, sections, out)
+cp, ct, _ = nondim(T, Q, Vinf, Omega, rho, rotor, "windturbine")
+println(cp)

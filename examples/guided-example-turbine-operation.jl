@@ -4,19 +4,22 @@
 using CCBlade
 using PyPlot
 
+# define scale
+scale = 1e-2
+
 # define rotor
-Rhub = 1.5
-Rtip = 63.0
+Rhub = scale * 1.5
+Rtip = scale * 63.0
 B = 3
 precone = 2.5*pi/180
 
 rotor = Rotor(Rhub, Rtip, B, precone=precone, turbine=true)
 
 # define the radial section properties
-r = [2.8667, 5.6000, 8.3333, 11.7500, 15.8500, 19.9500, 24.0500,
+r = scale .* [2.8667, 5.6000, 8.3333, 11.7500, 15.8500, 19.9500, 24.0500,
     28.1500, 32.2500, 36.3500, 40.4500, 44.5500, 48.6500, 52.7500,
     56.1667, 58.9000, 61.6333]
-chord = [3.542, 3.854, 4.167, 4.557, 4.652, 4.458, 4.249, 4.007, 3.748,
+chord = scale .* [3.542, 3.854, 4.167, 4.557, 4.652, 4.458, 4.249, 4.007, 3.748,
     3.502, 3.256, 3.010, 2.764, 2.518, 2.313, 2.086, 1.419]
 theta = pi/180*[13.308, 13.308, 13.308, 13.308, 11.480, 10.162, 9.011, 7.795,
     6.544, 5.361, 4.188, 3.125, 2.319, 1.526, 0.863, 0.370, 0.106]
@@ -45,7 +48,7 @@ sections = Section.(r, chord, theta, airfoils)
 # operating point for the turbine
 yaw = 0.0*pi/180
 tilt = 5.0*pi/180
-hubHt = 90.0
+hubHt = scale * 90.0
 shearExp = 0.2
 
 Vinf = 10.0
@@ -68,7 +71,7 @@ plot(r/Rtip, out.Tp/1e3)
 xlabel("r/Rtip")
 ylabel("distributed loads (kN/m)")
 legend(["flapwise", "lead-lag"])
-savefig("example-figures/guided-example-turbine-operation-distributed-loads.pdf")
+savefig("example-figures/guided-example-turbine-operation-distributed-loads-scale" * string(scale) * ".pdf")
 
 # integrate the loads to get thrust and torque (at azimuth=0)
 T, Q = thrusttorque(rotor, sections, out)
@@ -103,4 +106,4 @@ plot(tsrvec, cpvec)
 plot(tsrvec, ctvec)
 xlabel("tip speed ratio")
 legend([L"C_P", L"C_T"])
-savefig("example-figures/guided-example-turbine-operation-nondimpowercurve.pdf")
+savefig("example-figures/guided-example-turbine-operation-nondimpowercurve-scale" * string(scale) * ".pdf")

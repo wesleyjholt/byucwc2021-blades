@@ -6,6 +6,8 @@ using DelimitedFiles
 using PyPlot
 import FLOWMath
 
+turbine=true
+
 # import the radial section properties
 sectiondata = readdlm("input-files/pennstate2019.txt", skipstart=1)
 
@@ -48,6 +50,7 @@ sections = Section.(r, chord, theta, airfoils)
 # define rotor
 Rhub = r[1]
 Rtip = r[end]
+# println(Rtip)
 B = 3
 precone = 0.0*pi/180
 du = DuSeligEggers()  # Du-Selig correction for lift, Eggers correction for drag
